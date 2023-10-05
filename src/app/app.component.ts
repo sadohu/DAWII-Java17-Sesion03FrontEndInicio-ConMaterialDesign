@@ -6,5 +6,5 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'DAWII-Java17-Sesion03FrontEndInicio-SinMaterialDesign';
+  title = 'Sesion11FrontEnd-CRUDConValidaciones-Material-202301';
 }
