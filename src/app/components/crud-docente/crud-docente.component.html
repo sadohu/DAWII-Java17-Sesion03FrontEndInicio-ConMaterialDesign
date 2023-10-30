@@ -51,7 +51,7 @@
                 <ng-container matColumnDef="actions">
                     <mat-header-cell  mat-header-cell *matHeaderCellDef >&nbsp;</mat-header-cell>
   
-                    <mat-cell *matCellDef="let docente; let i=index;">
+                    <mat-cell *matCellDef="let docente;">
                           <div class="custom-control custom-switch">
                             <input type="checkbox" class="custom-control-input" 
                                     id="idEstado_{{ docente.idDocente }}" name="estado" 

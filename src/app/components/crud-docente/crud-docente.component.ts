@@ -71,7 +71,8 @@ export class CrudDocenteComponent implements OnInit {
   }
 
   actualizaEstado(obj : Docente){
-
+    obj.estado = obj.estado == 1 ? 0 : 1;  
+    this.docenteService.actualiza(obj).subscribe();
   }
 
   openUpdateDialog(obj : Docente){
@@ -85,6 +86,24 @@ export class CrudDocenteComponent implements OnInit {
   }
 
   elimina(obj : Docente){
-
+    Swal.fire({
+      title: '¿Desea eliminar?',
+      text: "Los cambios no se van a revertir",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Sí, elimina',
+      cancelButtonText: 'No, cancelar'
+    }).then((result) => {
+        if (result.isConfirmed) {
+          this.docenteService.elimina(obj.idDocente || 0).subscribe(
+            x => {
+              this.refreshTable();
+              Swal.fire('Mensaje', x.mensaje, 'info');
+            }
+          );
+        }
+    });
   }
 }
