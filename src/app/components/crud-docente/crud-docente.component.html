@@ -18,9 +18,66 @@
         </div>
 
         <div class="row" style="margin-top: 3%">
+            <mat-table #table class="mat-cell" [dataSource]="dataSource">
+                <ng-container matColumnDef="idDocente">
+                    <mat-header-cell math-header-cell *matHeaderCellDef>Código</mat-header-cell>
+                    <mat-cell *matCellDef="let docente"> {{docente.idDocente}}</mat-cell>
+                </ng-container>
+                <ng-container matColumnDef="nombre">
+                    <mat-header-cell math-header-cell *matHeaderCellDef>Nombre</mat-header-cell>
+                    <mat-cell *matCellDef="let docente"> {{docente.nombre}}</mat-cell>
+                </ng-container>
+                <ng-container matColumnDef="dni">
+                    <mat-header-cell math-header-cell *matHeaderCellDef>DNI</mat-header-cell>
+                    <mat-cell *matCellDef="let docente"> {{docente.dni}}</mat-cell>
+                </ng-container>
+                <ng-container matColumnDef="fecha">
+                    <mat-header-cell math-header-cell *matHeaderCellDef>Fecha</mat-header-cell>
+                    <mat-cell *matCellDef="let docente"> {{docente.fechaRegistro | date: "dd:MM:yyy"}}</mat-cell>
+                </ng-container>
+                <ng-container matColumnDef="hora">
+                    <mat-header-cell math-header-cell *matHeaderCellDef>Hora</mat-header-cell>
+                    <mat-cell *matCellDef="let docente"> {{docente.fechaRegistro | date: "HH:mm:ss a"}}</mat-cell>
+                </ng-container>
+                <ng-container matColumnDef="ubigeo">
+                    <mat-header-cell  mat-header-cell *matHeaderCellDef >Ubigeo</mat-header-cell>
+                    <mat-cell *matCellDef="let docente">{{ docente.ubigeo!.departamento }} - {{ docente.ubigeo!.provincia }} - {{ docente.ubigeo!.distrito }}</mat-cell>
+                  </ng-container>
+                  <ng-container matColumnDef="estado">
+                    <mat-header-cell mat-header-cell *matHeaderCellDef>Estado</mat-header-cell>
+                    <mat-cell *matCellDef="let docente">{{ docente.estado == 1 ? "Activo" : "Inactivo" }}</mat-cell>
+                  </ng-container>
 
+                <ng-container matColumnDef="actions">
+                    <mat-header-cell  mat-header-cell *matHeaderCellDef >&nbsp;</mat-header-cell>
+  
+                    <mat-cell *matCellDef="let docente; let i=index;">
+                          <div class="custom-control custom-switch">
+                            <input type="checkbox" class="custom-control-input" 
+                                    id="idEstado_{{ docente.idDocente }}" name="estado" 
+                                    [checked]="docente.estado == 1 ? true : false" 
+                                    (change)="actualizaEstado(docente)"  />  
+                            <label class="custom-control-label" for="idEstado_{{ docente.idDocente }}"></label>
+                        </div>  
+                     
+  
+                        <button mat-icon-button color="accent" (click)="openUpdateDialog(docente)">
+                            <mat-icon aria-label="Edit">edit</mat-icon>
+                         </button>
+                       
+                         <button mat-icon-button color="accent" (click)="elimina(docente)">
+                          <mat-icon aria-label="Delete">delete</mat-icon>
+                       </button>
+                    </mat-cell>
+                  </ng-container>
 
-    </div>
+                  
+                <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+                <mat-row *matRowDef="let docente; columns: displayedColumns"></mat-row>
+            </mat-table>
+            
+            <mat-paginator [pageSizeOptions]="[6,8,10]" showFirstLastButtons=""></mat-paginator>
+        </div>
 
 
     </div>

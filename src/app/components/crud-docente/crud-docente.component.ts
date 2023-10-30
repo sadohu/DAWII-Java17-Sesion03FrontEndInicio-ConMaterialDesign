@@ -54,24 +54,31 @@ export class CrudDocenteComponent implements OnInit {
     });
   }
 
- ngOnInit(): void {}
+  ngOnInit(): void {}
 
- consultaDocente(){
+  consultaDocente(){
       console.log(">>> consultaDocente >>> " +  this.filtro);
       this.refreshTable();
- }
+  }
 
+  private refreshTable() {
+    this.docenteService.consultaPorNombre(this.filtro==""?"todos":this.filtro).subscribe(
+      x => {
+        this.dataSource = new MatTableDataSource<Docente>(x);
+        this.dataSource.paginator = this.paginator; 
+      }
+    );
+  }
 
+  actualizaEstado(obj : Docente){
 
-  
+  }
 
+  openUpdateDialog(obj : Docente){
 
-private refreshTable() {
-  this.docenteService.consultaPorNombre(this.filtro==""?"todos":this.filtro).subscribe(
-    x => {
-      this.dataSource = new MatTableDataSource<Docente>(x);
-      this.dataSource.paginator = this.paginator; 
-    }
-  );
-}
+  }
+
+  elimina(obj : Docente){
+
+  }
 }
