@@ -44,7 +44,7 @@ export class CrudDocenteUpdateComponent {
     ); 
   };
 
-  onNoClick(){
+  onNoClick(): void{
     this.dialogRef.close();
   }
 
@@ -65,5 +65,10 @@ export class CrudDocenteUpdateComponent {
   }
 
   actualiza(){
+    this.docenteService.actualiza(this.docente).subscribe(
+      response => {
+        Swal.fire("Mensaje", response.mensaje, "info");
+      }
+    );
   }
 }
