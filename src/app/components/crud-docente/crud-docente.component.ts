@@ -62,7 +62,7 @@ export class CrudDocenteComponent implements OnInit {
   }
 
   private refreshTable() {
-    this.docenteService.consultaPorNombre(this.filtro==""?"todos":this.filtro).subscribe(
+    this.docenteService.consultaPorNombre(this.filtro == "" ? "todos" : this.filtro).subscribe(
       x => {
         this.dataSource = new MatTableDataSource<Docente>(x);
         this.dataSource.paginator = this.paginator; 
@@ -75,7 +75,13 @@ export class CrudDocenteComponent implements OnInit {
   }
 
   openUpdateDialog(obj : Docente){
+    const dialogRef = this.dialogService.open(CrudDocenteUpdateComponent, {data:obj});
 
+    dialogRef.afterClosed().subscribe(result => {
+      if (result === 1) {
+        this.refreshTable();
+      }
+    });
   }
 
   elimina(obj : Docente){
